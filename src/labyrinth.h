@@ -1,14 +1,13 @@
 #ifndef __LABYRINTH__H
 #define __LABYRINTH__H
 
-// typedef struct Marker Marker;
 
 #include <vector>
 
 /// The Maze Marker structures
-struct Marker {
-    char wall = '#';
-    char path = '.';
+enum Marker {
+    WALL = '#',
+    PATH = '.',
 };
 
 /// A single point on the Maze
