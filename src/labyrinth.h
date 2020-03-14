@@ -28,9 +28,11 @@ class Maze {
     public:
         Maze(bool checkLastRow=true);
         
-
-        /// Finds the longest traceable path in a passed maze vector.
-        /// 
+        /**
+        *  Finds the longest traceable path in a passed maze vector.
+        * @param maze: The Coordinate grid
+        * @returns Vector with Coordinates to the longest path.
+        */
         std::vector<Coordinate> findLongestPath(std::vector<std::vector<Marker>> maze)
             ;
     private:
