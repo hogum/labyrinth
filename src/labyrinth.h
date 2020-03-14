@@ -5,12 +5,12 @@
 #include <vector>
 
 /// The Maze Marker structures
-enum Marker {
+enum Marker: char {
     WALL = '#',
     PATH = '.',
 };
 
-/// A single point on the Maze
+/// Represents a single coordinate point on the Maze
 struct Coordinate {
     int row;
     int col;
@@ -20,11 +20,15 @@ struct Coordinate {
 /// maze
 class Maze {
     public:
+        /// Finds the longest traceable path in a passed maze vector.
+        /// 
         std::vector<Coordinate> findLongestPath(std::vector<std::vector<Marker>> maze)
 ;
     private:
+        /// Checks whether a Coordinate leads to a dead end.
+        /// This means a single complete path
         bool leadsToEnd();
-
+        std::vector<Coordinate> path;
 };
 
 #endif
