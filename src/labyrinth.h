@@ -3,7 +3,6 @@
 
 
 #include <vector>
-#include <array>
 
 /// The Maze Marker structures
 enum Marker: char {
@@ -37,36 +36,36 @@ class Maze {
         std::vector<Coordinate> findLongestPath(std::vector<std::vector<Marker>> maze)
             ;
     private:
-            /// Checks whether a Coordinate leads to a dead end.
-            /// This means a single complete path
-            bool leadsToEnd(Coordinate point,
-                    std::vector<Coordinate> *path,
-                    std::vector<std::vector<Marker>> maze
-                    );
+        /// Checks whether a Coordinate leads to a dead end.
+        /// This means a single complete path
+        bool leadsToEnd(Coordinate point,
+                std::vector<Coordinate> *path,
+                std::vector<std::vector<Marker>> maze
+                );
 
-            /// Finds all the PATH starting points in the maze.
-            /// Entry points assumed to exist in either the top
-            /// or the bottom maze row.
-            void getEntryPoints(
-                    std::vector<Coordinate> *entryPoints,/**< Points to starting path coordinates. */  
-                    std::vector<std::vector<Marker>> maze, /**< Maze grid. */  
-                    bool check_last_row /**< option to check for starting points in last maze row. */  
-                    );
-            bool check_last_row; /**< Flag to look for paths from bottom*/
+        /// Finds all the PATH starting points in the maze.
+        /// Entry points assumed to exist in either the top
+        /// or the bottom maze row.
+        void getEntryPoints(
+                std::vector<Coordinate> *entryPoints,/**< Points to starting path coordinates. */  
+                std::vector<std::vector<Marker>> maze, /**< Maze grid. */  
+                bool check_last_row /**< option to check for starting points in last maze row. */  
+                );
+        bool check_last_row; /**< Flag to look for paths from bottom*/
 
-            /// Checks whether a given point marks the end
-            /// of a path.
-            bool isEnd(Coordinate c,
-                    std::vector<std::vector<Marker>> grid
-                    );
+        /// Checks whether a given point marks the end
+        /// of a path.
+        bool isNotEnd(Coordinate c,
+                std::vector<std::vector<Marker>> grid
+                );
 
-            /**< Traversible directions on grid */
-            std::array<std::array<int, 4>, 2>  DIRECTIONS {{{
-                {0, 1}, 
-                {0, -1},
-                {1, 0},
-                {-1, 0},
-            }}};
+        /**< Traversible directions on grid */
+        const int DIRECTIONS[4][2] = {
+            {0, 1}, // RIGHT
+            {0, -1}, // LEFT
+            {1, 0}, // DOWN
+            {-1, 0} // UP
+        };
 
 
 };

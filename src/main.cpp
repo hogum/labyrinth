@@ -10,21 +10,22 @@ int main(int argc, char **argv) {
 
     Maze mz; 
 
-    for(int i= 0; i< 11; i++){
+    for(int i= 0; i< 5; i++){
         m.push_back(PATH);   
         mm.push_back(WALL);
         mmm.push_back(WALL);
     }
     m[3] =WALL;
-    m[4] =WALL;
-    m[7] =WALL;
-    mmm[7] =PATH;
-    mmm[9] =PATH;
-    mmm[10] =PATH;
+    m[2] =WALL;
+    m[0] =WALL;
+    mm[1] =PATH;
 
-    for(int i= 0; i< 11; i++){
+    for(int i= 0; i< 5; i++){
     }
     maze.push_back(m);
+    maze.push_back(mm);
+    maze.push_back(mm);
+    maze.push_back(mm);
     maze.push_back(mm);
     maze.push_back(mmm);
 

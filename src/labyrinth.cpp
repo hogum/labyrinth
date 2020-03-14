@@ -16,17 +16,20 @@ std::vector<Coordinate> Maze::findLongestPath(std::vector<std::vector<Marker>> m
     getEntryPoints(&EntryPoints, maze, this->check_last_row);
 
 
+    if (EntryPoints.empty())
+        return EntryPoints;
+        
     for(auto entry: EntryPoints) {
         std::vector<Coordinate> path;
 
-        maze[entry.row][entry.col] = WALL;
+        maze.at(entry.row).at(entry.col) = WALL;
 
         if (leadsToEnd(entry, &path, maze)) {
             all_paths[path.size()] = path;
 
         }
     }
-    return EntryPoints;
+    return all_paths.rbegin()->second;
 }
 
 bool Maze::leadsToEnd(Coordinate point,
@@ -34,19 +37,18 @@ bool Maze::leadsToEnd(Coordinate point,
         std::vector<std::vector<Marker>> maze
         )  {
 
-    for(auto direction: this-> DIRECTIONS) {
+    for(auto&  direction: this-> DIRECTIONS) {
         // We were told not to go up
-        if (!this-> check_last_row && direction == DIRECTIONS.back()})
+        if (!this-> check_last_row && direction == DIRECTIONS[3])
             continue;
-
         Coordinate nxt_point =  Coordinate {
-            .row = point.row + direction[0];
-            .col = point.col + direction[1];
+            .row = point.row + *direction,
+            .col = point.col + *(direction + 1),
         };
 
-        if (!isEnd(nxt_point, maze)) {
+        if (isNotEnd(nxt_point, maze)) {
             // Mark as visited
-            maze[nxt_point.row][nxt_point.col] = WALL;
+            maze.at( nxt_point.row ).at( nxt_point.col ) = WALL;
             path->push_back(nxt_point);
 
             return leadsToEnd(nxt_point, path, maze);
@@ -81,8 +83,8 @@ void Maze::getEntryPoints(
     }
 }
 
-bool Maze::isEnd(Coordinate point,
+bool Maze::isNotEnd(Coordinate point,
         std::vector<std::vector<Marker>> maze
         ) {
-    return  point.row < maze.size() && point.col < maze[point.row].size() && point.row >= 0 && point.col >= 0 && maze[point.row][point.col] == PATH;
+    return point.row < maze.size() && point.col < maze.at(point.row).size() && point.row >= 0 && point.col >= 0 && maze.at(point.row).at( point.col ) == PATH;
 }
