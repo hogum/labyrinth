@@ -16,12 +16,14 @@ std::vector<Coordinate> Maze::findLongestPath(std::vector<std::vector<Marker>> m
     getEntryPoints(&EntryPoints, maze, this->check_last_row);
 
 
+    /* No entry point*/
     if (EntryPoints.empty())
         return EntryPoints;
 
     for(auto entry: EntryPoints) {
         std::vector<Coordinate> path;
 
+        /* Mark as Visited */
         maze.at(entry.row).at(entry.col) = WALL;
         path.push_back(entry);
 
@@ -39,7 +41,7 @@ bool Maze::leadsToEnd(Coordinate point,
         )  {
 
     for(auto&  direction: this->DIRECTIONS) {
-        // We were told not to go up
+        // We were told not to go UP
         if (!this-> check_last_row && direction == DIRECTIONS[3])
             continue;
         Coordinate nxt_point =  Coordinate {
