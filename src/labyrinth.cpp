@@ -10,7 +10,9 @@ Maze::Maze(bool checkLastRow) {
 
 std::vector<Coordinate> Maze::findLongestPath(std::vector<std::vector<Marker>> maze) {
 
-    std::map <size_t, std::vector<Coordinate>> all_paths= std::map <size_t, std::vector<Coordinate>> ();
+    std::map <size_t,
+        std::vector<Coordinate>> all_paths = std::map <
+            size_t, std::vector<Coordinate>> ();
     std::vector<Coordinate> EntryPoints;
 
     getEntryPoints(&EntryPoints, maze, this->check_last_row);
@@ -89,5 +91,8 @@ void Maze::getEntryPoints(
 bool Maze::isNotEnd(Coordinate point,
         std::vector<std::vector<Marker>> maze
         ) {
-    return point.row < maze.size() and point.col < maze.at(point.row).size() and point.row >= 0 and point.col >= 0 and maze.at(point.row).at( point.col ) == PATH;
+    return point.row < maze.size() and point.col < maze.at(
+            point.row).size() \
+        and point.row >= 0 and point.col >= 0 \
+        and maze.at(point.row).at( point.col ) == PATH;
 }

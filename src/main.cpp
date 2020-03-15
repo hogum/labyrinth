@@ -45,7 +45,11 @@ void read_labyrinth(
     std::vector<std::string> labyrinth;
 
     if(!inFile) {
-        throw std::runtime_error("Unable to find the labyrinth text file.\nCheck the name again");
+        throw std::runtime_error(
+                "Unable to find the labyrinth "
+                "text file.\nCheck the name again"
+                ", cool?"
+                );
     }
 
     std::copy(std::istream_iterator<std::string>(inFile),
@@ -57,7 +61,10 @@ void read_labyrinth(
         std::vector<Marker> v_row;
         for(auto l: labyrinth[i++]) {
             if(l !='#' and l!= '.') {
-                const char msg[] = "Found invalid character in labyrinth text file. The maze should have either:\n '#' - WALL\n '.' - PATH ";
+                const char msg[] = "Found invalid character(s)"
+                    " in labyrinth text file."
+                    " The maze should have either:"
+                    "\n '#' - WALL\n '.' - PATH ";
                 throw std::invalid_argument(msg);
             }
             v_row.push_back((Marker)l);
@@ -67,14 +74,16 @@ void read_labyrinth(
 }
 
 
-void displayTakenPath(std::vector<std::vector<Marker>> grid,
+void displayTakenPath(
+        std::vector<std::vector<Marker>> grid,
         std::vector<Coordinate> trace) {
     char order = '0';
 
     for(auto coord: trace) {
         grid.at(coord.row).at(coord.col) = (Marker)order++;
     }
-    std::cout << "\n" << " " << trace.size() << std::endl;
+    std::cout << "\n" << " " << trace.size() << "\n"\
+        << std::endl;
     for (auto row: grid) {
         for (auto col: row)
             std::cout << " " << (char)col << std::flush;
