@@ -12,15 +12,12 @@ void read_labyrinth(
         std::vector<std::vector<Marker>> *grid,
         char * file);
 
-/// Marks the coordinates in the traced out path in the
-/// order of visit
+/** Marks the coordinates in the traced out path in the
+  * order of visit.
+  * Saves the schema of the largest detected pathway
+  */
 void displayTakenPath(std::vector<std::vector<Marker>> *grid,
-        std::vector<Coordinate> path);
-
-/**
- * Saves the schema of the largest detected pathway
- * */
-void saveOutput(std::vector<std::vector<Marker>> grid,
-        char * outputPath);
+        std::vector<Coordinate> path,
+        char *outputPath);
 
 #endif

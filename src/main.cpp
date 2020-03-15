@@ -17,8 +17,7 @@ int main(int argc, char **argv) {
     } 
     Maze mz = Maze(false);
     std::vector<Coordinate> path = mz.findLongestPath(labyrinth);
-    displayTakenPath(&labyrinth, path);
-    saveOutput(labyrinth, *(argv + 2));
+    displayTakenPath(&labyrinth, path, *(argv + 2));
     return 0;
 }
 
@@ -78,8 +77,9 @@ void read_labyrinth(
 
 void displayTakenPath(
         std::vector<std::vector<Marker>> *grid,
-        std::vector<Coordinate> trace) {
+        std::vector<Coordinate> trace, char *outfName) {
     char order = '0';
+    std::ofstream outFile(outfName);
 
     for(auto coord: trace) {
         grid->at(coord.row).at(coord.col) = (Marker)order++;
@@ -87,21 +87,13 @@ void displayTakenPath(
     std::cout << "\n" << " " << trace.size() << "\n"\
         << std::endl;
     for (auto row: *grid) {
-        for (auto col: row)
+        for (auto col: row) {
             std::cout << " " << (char)col << std::flush;
+            outFile << (char) col << " ";
+        }
         std::cout << "\n" << std::endl;
+        outFile << "\n";
     }
+    std::cout << "Saved output to config file: " << outfName << std::endl;
 }
 
-void saveOutput(std::vector<std::vector<Marker>> maze,
-        char outfName[]){
-        std::ofstream outFile(outfName);
-
-       for(int i = 0 ; i < maze.size(); i++) {
-       for(auto c: maze[i])  {
-           outFile << (char) c << " ";
-       }
-       outFile << "\n";
-       }
-       std::cout << "Saved output to config file: " << outfName << std::endl;
-}
