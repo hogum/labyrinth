@@ -1,4 +1,5 @@
 # include "../include/main.h"
+# include "LabyrinthConfig.h"
 
 # include <iostream>
 # include <fstream>
@@ -22,19 +23,26 @@ int main(int argc, char **argv) {
 }
 
 int show_usage(char **argv, int argc) {
+    if (argc != 3) {
+        std::cout << *argv << " Version " << Labyrinth_VERSION_MAJOR << "."
+            << Labyrinth_VERSION_MINOR << std::endl << "\n";
+    }
     if (argc > 3) {
-        std::cerr << "Unkown argument: " << *(argv + 3) << std::endl;
+        std::cerr << "Unknown argument: " << *(argv + 3) << std::endl;
     } else if (argc < 3) {
         std::cerr << "Missing Path to file" << std::endl;
     } else {
         return 0;
     }
     std::cout << "Example Usage: " << std::endl;
-    std::cout << "\t" << *argv << "  path_to_text_file" << \
-        "  path_to_output_file" << std::endl;
-    std::cout << "\t e.g: " << *argv << "  example.txt" << \
-        "  output.txt" << std::endl;
-    std::cout << "\nJust breath and try again, cool?" << std::endl;
+
+    std::cout << "\t" << *argv << "  path_to_text_file"
+        << "  path_to_output_file" << std::endl;
+    std::cout << "\t e.g: " << *argv
+        << "  example.txt" << "  output.txt" << std::endl;
+
+    std::cout << "\nJust breath and try again, cool?"
+        << std::endl;
 
     return 1;
 }

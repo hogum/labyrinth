@@ -1,0 +1,2 @@
+#define Labyrinth_VERSION_MAJOR @Labyrinth_VERSION_MAJOR@
+#define Labyrinth_VERSION_MINOR @Labyrinth_VERSION_MINOR@
