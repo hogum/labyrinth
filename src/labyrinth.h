@@ -40,7 +40,7 @@ class Maze {
         /// This means a single complete path
         bool leadsToEnd(Coordinate point,
                 std::vector<Coordinate> *path,
-                std::vector<std::vector<Marker>> maze
+                std::vector<std::vector<Marker>> *maze
                 );
 
         /// Finds all the PATH starting points in the maze.
@@ -69,5 +69,15 @@ class Maze {
 
 
 };
+
+// TODO Move these to utils
+
+/// Start Helper Function
+int show_usage(char *arg_vec[], int argc);
+
+/// Extracts the labyrinth from file
+void read_labyrinth(
+        std::vector<std::vector<Marker>> *grid,
+        char * file);
 
 #endif

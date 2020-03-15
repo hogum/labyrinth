@@ -1,39 +1,69 @@
 # include "labyrinth.h"
 # include <iostream>
+# include <fstream>
+# include <string>
+# include <iterator>
+# include <algorithm>
 
 int main(int argc, char **argv) {
-    std::vector<std::vector<Marker>> maze;
-    std::vector<Coordinate> path;
-    std::vector<Marker> m;
-    std::vector<Marker> mm;
-    std::vector<Marker> mmm;
+    if (show_usage(argv, argc))
+        return EXIT_SUCCESS;
+    std::vector<std::vector<Marker>> labyrinth;
 
-    Maze mz; 
-
-    for(int i= 0; i< 5; i++){
-        m.push_back(PATH);   
-        mm.push_back(WALL);
-        mmm.push_back(WALL);
+    try {
+        read_labyrinth(&labyrinth, *(argv + 1));
+    } catch (std::exception& e) {
+        std::cerr << e.what() << std::endl;
+        return EXIT_SUCCESS;
+    } 
+    Maze mz = Maze(false);
+    std::vector<Coordinate> path = mz.findLongestPath(labyrinth);
+    std::cout <<"row: " << path[1].row <<" col: " << path[1].col <<std::endl;
+    std::cout << path.size() << std::endl; 
+    return 0;
+}
+    
+int show_usage(char **argv, int argc) {
+    if (argc > 2) {
+        std::cerr << "Unkown argument: " << *(argv + 2) << std::endl;
+    } else if (argc < 2) {
+        std::cerr << "Missing Path to file" << std::endl;
+    } else {
+        return 0;
     }
-    m[3] =WALL;
-    m[2] =WALL;
-    m[0] =WALL;
-    mm[1] =PATH;
+    std::cout << "Example Usage: " << std::endl;
+    std::cout << "\t" << *argv << "  path_to_text_file" << std::endl;
+    std::cout << "\t e.g: " << *argv << "  file.txt" <<std::endl;
+    std::cout << "\nJust breath and try again, cool?" << std::endl;
 
-    for(int i= 0; i< 5; i++){
+
+    return 1;
+}
+
+void read_labyrinth(
+        std::vector<std::vector<Marker>> *lh,
+        char *input_file) {
+    std::ifstream inFile(input_file);
+    std::vector<std::string> labyrinth;
+
+    if(!inFile) {
+        throw std::runtime_error("Unable to find the labyrinth text file.\nCheck the name again");
     }
-    maze.push_back(m);
-    maze.push_back(mm);
-    maze.push_back(mm);
-    maze.push_back(mm);
-    maze.push_back(mm);
-    maze.push_back(mmm);
 
-    path = mz.findLongestPath(maze);
+    std::copy(std::istream_iterator<std::string>(inFile),
+            std::istream_iterator<std::string>(),
+            std::back_inserter(labyrinth));
 
-    for(auto i: path) {
-        std::cout << "row: " << i.row << std::endl;
-        std::cout << "col: " << i.col << std::endl;
-        std::cout << std::endl;
+    size_t i =0;
+    while(i < labyrinth.size()) {
+        std::vector<Marker> v_row;
+        for(auto l: labyrinth[i++]) {
+            if(l !='#' and l!= '.') {
+                const char msg[] = "Found invalid character in labyrinth text file. The maze should have either:\n '#' - WALL\n '.' - PATH ";
+                throw std::invalid_argument(msg);
+            }
+            v_row.push_back((Marker)l);
+        }
+        lh->push_back(v_row);
     }
 }
