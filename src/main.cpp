@@ -74,7 +74,7 @@ void displayTakenPath(std::vector<std::vector<Marker>> grid,
     for(auto coord: trace) {
         grid.at(coord.row).at(coord.col) = (Marker)order++;
     }
-    std::cout << "\n" << std::endl;
+    std::cout << "\n" << " " << trace.size() << std::endl;
     for (auto row: grid) {
         for (auto col: row)
             std::cout << " " << (char)col << std::flush;
