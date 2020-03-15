@@ -72,12 +72,4 @@ class Maze {
 
 // TODO Move these to utils
 
-/// Start Helper Function
-int show_usage(char *arg_vec[], int argc);
-
-/// Extracts the labyrinth from file
-void read_labyrinth(
-        std::vector<std::vector<Marker>> *grid,
-        char * file);
-
 #endif

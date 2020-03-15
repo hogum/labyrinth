@@ -18,13 +18,14 @@ std::vector<Coordinate> Maze::findLongestPath(std::vector<std::vector<Marker>> m
 
     if (EntryPoints.empty())
         return EntryPoints;
-        
+
     for(auto entry: EntryPoints) {
         std::vector<Coordinate> path;
 
         maze.at(entry.row).at(entry.col) = WALL;
+        path.push_back(entry);
 
-        if (leadsToEnd(entry, &path, maze)) {
+        if (leadsToEnd(entry, &path, &maze)) {
             all_paths[path.size()] = path;
 
         }
@@ -34,21 +35,21 @@ std::vector<Coordinate> Maze::findLongestPath(std::vector<std::vector<Marker>> m
 
 bool Maze::leadsToEnd(Coordinate point,
         std::vector<Coordinate> *path,
-        std::vector<std::vector<Marker>> maze
+        std::vector<std::vector<Marker>> *maze
         )  {
 
-    for(auto&  direction: this-> DIRECTIONS) {
+    for(auto&  direction: this->DIRECTIONS) {
         // We were told not to go up
         if (!this-> check_last_row && direction == DIRECTIONS[3])
             continue;
         Coordinate nxt_point =  Coordinate {
             .row = point.row + *direction,
-            .col = point.col + *(direction + 1),
+                .col = point.col + *(direction + 1),
         };
 
-        if (isNotEnd(nxt_point, maze)) {
+        if (isNotEnd(nxt_point, *maze)) {
             // Mark as visited
-            maze.at( nxt_point.row ).at( nxt_point.col ) = WALL;
+            maze->at( nxt_point.row ).at( nxt_point.col ) = WALL;
             path->push_back(nxt_point);
 
             return leadsToEnd(nxt_point, path, maze);
@@ -86,5 +87,5 @@ void Maze::getEntryPoints(
 bool Maze::isNotEnd(Coordinate point,
         std::vector<std::vector<Marker>> maze
         ) {
-    return point.row < maze.size() && point.col < maze.at(point.row).size() && point.row >= 0 && point.col >= 0 && maze.at(point.row).at( point.col ) == PATH;
+    return point.row < maze.size() and point.col < maze.at(point.row).size() and point.row >= 0 and point.col >= 0 and maze.at(point.row).at( point.col ) == PATH;
 }

@@ -1,9 +1,8 @@
-# include "labyrinth.h"
+# include "../include/main.h"
+
 # include <iostream>
 # include <fstream>
-# include <string>
 # include <iterator>
-# include <algorithm>
 
 int main(int argc, char **argv) {
     if (show_usage(argv, argc))
