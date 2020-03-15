@@ -17,23 +17,25 @@ int main(int argc, char **argv) {
     } 
     Maze mz = Maze(false);
     std::vector<Coordinate> path = mz.findLongestPath(labyrinth);
-    displayTakenPath(labyrinth, path);
+    displayTakenPath(&labyrinth, path);
+    saveOutput(labyrinth, *(argv + 2));
     return 0;
 }
-    
+
 int show_usage(char **argv, int argc) {
-    if (argc > 2) {
-        std::cerr << "Unkown argument: " << *(argv + 2) << std::endl;
-    } else if (argc < 2) {
+    if (argc > 3) {
+        std::cerr << "Unkown argument: " << *(argv + 3) << std::endl;
+    } else if (argc < 3) {
         std::cerr << "Missing Path to file" << std::endl;
     } else {
         return 0;
     }
     std::cout << "Example Usage: " << std::endl;
-    std::cout << "\t" << *argv << "  path_to_text_file" << std::endl;
-    std::cout << "\t e.g: " << *argv << "  file.txt" <<std::endl;
+    std::cout << "\t" << *argv << "  path_to_text_file" << \
+        "  path_to_output_file" << std::endl;
+    std::cout << "\t e.g: " << *argv << "  example.txt" << \
+        "  output.txt" << std::endl;
     std::cout << "\nJust breath and try again, cool?" << std::endl;
-
 
     return 1;
 }
@@ -75,18 +77,31 @@ void read_labyrinth(
 
 
 void displayTakenPath(
-        std::vector<std::vector<Marker>> grid,
+        std::vector<std::vector<Marker>> *grid,
         std::vector<Coordinate> trace) {
     char order = '0';
 
     for(auto coord: trace) {
-        grid.at(coord.row).at(coord.col) = (Marker)order++;
+        grid->at(coord.row).at(coord.col) = (Marker)order++;
     }
     std::cout << "\n" << " " << trace.size() << "\n"\
         << std::endl;
-    for (auto row: grid) {
+    for (auto row: *grid) {
         for (auto col: row)
             std::cout << " " << (char)col << std::flush;
         std::cout << "\n" << std::endl;
     }
+}
+
+void saveOutput(std::vector<std::vector<Marker>> maze,
+        char outfName[]){
+        std::ofstream outFile(outfName);
+
+       for(int i = 0 ; i < maze.size(); i++) {
+       for(auto c: maze[i])  {
+           outFile << (char) c << " ";
+       }
+       outFile << "\n";
+       }
+       std::cout << "Saved output to config file: " << outfName << std::endl;
 }
