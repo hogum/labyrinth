@@ -12,4 +12,9 @@ void read_labyrinth(
         std::vector<std::vector<Marker>> *grid,
         char * file);
 
+/// Marks the coordinates in the traced out path in the
+/// order of visit
+void displayTakenPath(std::vector<std::vector<Marker>> grid,
+        std::vector<Coordinate> path);
+
 #endif

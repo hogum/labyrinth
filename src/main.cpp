@@ -17,8 +17,7 @@ int main(int argc, char **argv) {
     } 
     Maze mz = Maze(false);
     std::vector<Coordinate> path = mz.findLongestPath(labyrinth);
-    std::cout <<"row: " << path[1].row <<" col: " << path[1].col <<std::endl;
-    std::cout << path.size() << std::endl; 
+    displayTakenPath(labyrinth, path);
     return 0;
 }
     
@@ -64,5 +63,21 @@ void read_labyrinth(
             v_row.push_back((Marker)l);
         }
         lh->push_back(v_row);
+    }
+}
+
+
+void displayTakenPath(std::vector<std::vector<Marker>> grid,
+        std::vector<Coordinate> trace) {
+    char order = '0';
+
+    for(auto coord: trace) {
+        grid.at(coord.row).at(coord.col) = (Marker)order++;
+    }
+    std::cout << "\n" << std::endl;
+    for (auto row: grid) {
+        for (auto col: row)
+            std::cout << " " << (char)col << std::flush;
+        std::cout << "\n" << std::endl;
     }
 }
