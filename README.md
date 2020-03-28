@@ -5,7 +5,7 @@ Solution to tracing the largest path in a labyrinth
 ### Setup
 ##### 1. Clone the repository and change to the working directory
 ```
-  https://github.com/hogum/labyrinth && cd labyrinth
+  git clone https://github.com/hogum/labyrinth && cd labyrinth
 ```
 
 ##### 2. Build using Cmake
@@ -20,10 +20,11 @@ Solution to tracing the largest path in a labyrinth
 ```
 cmake --build .
 ```
-- The above steps should create a executable `labyrinth` in the current directory
+- The above steps should create an executable `labyrinth` in the current directory
 
 ##### Running
 
 ```
-  ./labyrinth input_file output_file
+ $ ./labyrinth path_to_input_maze_file.txt output_file.txt
 ```
+ **example**: To use the example file provided -> `./labyrinth example_maze output.txt`
